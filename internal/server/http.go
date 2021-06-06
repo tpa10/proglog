@@ -8,7 +8,7 @@ import (
 )
 
 // Used to create an instance of an HTTP server
-func NewHTTPSServer(addr string) *http.Server {
+func NewHTTPServer(addr string) *http.Server {
     httpsrv := newHTTPServer()
     r := mux.NewRouter()
     r.HandleFunc("/", httpsrv.handleProduce).Methods("POST")
