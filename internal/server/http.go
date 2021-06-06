@@ -37,15 +37,15 @@ type ProduceResponse struct {
     Offset uint64 `json:"offset"`
 }
 
-type ConsumeRequest {
-    Offset unt64 `json:"offset"`
-{
+type ConsumeRequest struct {
+    Offset uint64 `json:"offset"`
+}
 
-type ConsumeResponse {
+type ConsumeResponse struct {
     Record Record `json:"record"`
 }
 
-func (s *httpServer) handleProduce( w http.ResponsWriter, r *http.Request) {
+func (s *httpServer) handleProduce( w http.ResponseWriter, r *http.Request) {
     var req ProduceRequest
     err := json.NewDecoder(r.Body).Decode(&req)
     if err != nil {
@@ -54,14 +54,14 @@ func (s *httpServer) handleProduce( w http.ResponsWriter, r *http.Request) {
     }
 }
 
-func (s *httpServerhandleConsume(w.http.RespnsWriter, r *http.Request) {
+func (s *httpServer) handleConsume(w http.ResponseWriter, r *http.Request) {
     var req ConsumeRequest
-    err := json.NewDecoder(r.body).Decode(&req)
+    err := json.NewDecoder(r.Body).Decode(&req)
     if err != nil {
         http.Error(w, err.Error(), http.StatusBadRequest)
         return
     }
-    record, err := s.log.Read(req.Offset)
+    record, err := s.Log.Read(req.Offset)
     if err == ErrOffsetNotFound {
         http.Error(w, err.Error(), http.StatusNotFound)
         return
