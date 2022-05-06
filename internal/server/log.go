@@ -14,7 +14,10 @@ func NewLog() *Log {
     return &Log{}
 }
 
-// Appending a record just tacks data on the end of the slice.
+/*
+ * Appending a record just tacks data on the end of the slice.
+ *  returns the offset into the log for the appended record.
+ */
 func (c *Log) Append(record Record) (uint64, error) {
     c.mu.Lock()
     defer c.mu.Unlock()
@@ -23,6 +26,10 @@ func (c *Log) Append(record Record) (uint64, error) {
     return record.Offset, nil
 }
 
+/*
+ * Given an offset into the log, return the record stored
+ *  at that offset.
+ */
 func (c *Log) Read(offset uint64) (Record, error) {
     c.mu.Lock()
     defer c.mu.Unlock()
